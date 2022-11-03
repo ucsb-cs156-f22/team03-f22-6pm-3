@@ -3,7 +3,7 @@
 
 TODO: Add a link to the deployed Heroku app for your team here, e.g.
 
-* <https://f22-7pm-3-team02.herokuapp.com>
+* Production deployment: <https://f22-6pm-3-team03.herokuapp.com/>
 
 * Storybook (production): <https://ucsb-cs156-f22.github.io/team03-f22-6pm-3-docs>
 * Storybook (development/qa): <https://ucsb-cs156-f22.github.io/team03-f22-6pm-3-docs-qa>

@@ -1,15 +1,12 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
-import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
+import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
 
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { ucsbDatesFixtures } from "fixtures/ucsbDatesFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-import mockConsole from "jest-mock-console";
 
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
@@ -22,11 +19,11 @@ jest.mock('react-toastify', () => {
 });
 
 
-describe("UCSBDatesIndexPage tests", () => {
+describe("HelpRequestsIndexPage tests", () => {
 
     const axiosMock =new AxiosMockAdapter(axios);
 
-    const testId = "UCSBDatesTable";
+    const testId = "HelpRequestsTable";
 
     const setupUserOnly = () => {
         axiosMock.reset();
@@ -45,12 +42,12 @@ describe("UCSBDatesIndexPage tests", () => {
     test("renders without crashing for regular user", () => {
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/ucsbdates/all").reply(200, []);
+        axiosMock.onGet("/api/helprequests/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <UCSBDatesIndexPage />
+                    <HelpRequestsIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -59,12 +56,12 @@ describe("UCSBDatesIndexPage tests", () => {
     test("renders without crashing for admin user", () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/ucsbdates/all").reply(200, []);
+        axiosMock.onGet("/api/helprequests/all").reply(200, []);
 
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <UCSBDatesIndexPage />
+                    <HelpRequestsIndexPage />
                 </MemoryRouter>
             </QueryClientProvider>
         );

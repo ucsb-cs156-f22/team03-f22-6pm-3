@@ -75,6 +75,79 @@ export default function AppNavbar({ currentUser, systemInfo, doLogout, currentUr
                   </NavDropdown>
                 )
               }
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Organization" id="appnavbar-organizations-dropdown" data-testid="appnavbar-organizations-dropdown" >
+                    <NavDropdown.Item as={Link} to="/organizations/list" data-testid="appnavbar-organizations-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item as={Link} to="/organizations/create" data-testid="appnavbar-organizations-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+              }
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Menu Items" id="appnavbar-menuitems-dropdown" data-testid="appnavbar-menuitems-dropdown" >
+                    <NavDropdown.Item as={Link} to="/menuitems/list" data-testid="appnavbar-menuitems-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item as={Link} to="/menuitems/create" data-testid="appnavbar-menuitems-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+                }
+               {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Recommendations" id="appnavbar-recommendations-dropdown" data-testid="appnavbar-recommendations-dropdown" >
+                    <NavDropdown.Item as={Link} to="/recommendations/list" data-testid="appnavbar-recommendations-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item as={Link} to="/recommendations/create" data-testid="appnavbar-recommendations-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+                }
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Reviews" id="appnavbar-reviews-dropdown" data-testid="appnavbar-reviews-dropdown" >
+                    <NavDropdown.Item as={Link} to="/reviews/list" data-testid="appnavbar-reviews-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item as={Link} to="/reviews/create" data-testid="appnavbar-reviews-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+                }
+              {
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Help Requests" id="appnavbar-helprequests-dropdown" data-testid="appnavbar-helprequests-dropdown" >
+                    <NavDropdown.Item as={Link} to="/helprequests/list" data-testid="appnavbar-helprequests-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item as={Link} to="/helprequests/create" data-testid="appnavbar-helprequests-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+                }
+              { 
+                hasRole(currentUser, "ROLE_USER") && (
+                  <NavDropdown title="Articles" id="appnavbar-articles-dropdown" data-testid="appnavbar-articles-dropdown" >
+                    <NavDropdown.Item as={Link} to="/articles/list" data-testid="appnavbar-articles-list">List</NavDropdown.Item>
+                    {
+                      hasRole(currentUser, "ROLE_ADMIN") && (
+                        <NavDropdown.Item as={Link} to="/articles/create" data-testid="appnavbar-articles-create">Create</NavDropdown.Item>
+                      )
+                    }
+                  </NavDropdown>
+                )
+                }
+                
             </Nav>
 
             <Nav className="ml-auto">

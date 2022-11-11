@@ -17,12 +17,12 @@ const Template = (args) => {
 export const Empty = Template.bind({});
 
 Empty.args = {
-    menuitems: []
+    menuItem: []
 };
 
 export const ThreeMenuitem = Template.bind({});
 
 ThreeMenuitem.args = {
-    menuitems: menuItemsFixtures.threeMenuItem
+    menuItem: menuItemsFixtures.threeMenuItem
 };
 

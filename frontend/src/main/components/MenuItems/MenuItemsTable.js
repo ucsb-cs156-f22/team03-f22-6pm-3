@@ -58,7 +58,7 @@ export default function MenuItemsTable({ menuItem, currentUser }) {
     const columnsIfAdmin = [
         ...columns,
         //ButtonColumn("Edit", "primary", editCallback, "UCSBDatesTable"),
-        ButtonColumn("Delete", "danger", deleteCallback, "MenuItems")
+        ButtonColumn("Delete", "danger", deleteCallback, "MenuItemsTable")
     ];
 
     const columnsToDisplay = hasRole(currentUser, "ROLE_ADMIN") ? columnsIfAdmin : columns;

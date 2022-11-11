@@ -5,7 +5,7 @@ import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import OrganizationsTable from 'main/components/Organizations/OrganizationsTable';
 import { useCurrentUser } from 'main/utils/currentUser' // use prefix indicates a React Hook
 
-export default function OrganizationIndexPage() {
+export default function OrganizationsIndexPage() {
 
   const currentUser = useCurrentUser();
 
@@ -17,12 +17,14 @@ export default function OrganizationIndexPage() {
             { method: "GET", url: "/api/ucsborganizations/all" },
       []
     );
+  console.log(ucsbOrganizations)
 
   return (
     <BasicLayout>
+
       <div className="pt-2">
         <h1>UCSB Organizations</h1>
-        <OrganizationsTable ucsbOrganizations={ucsbOrganizations} currentUser={currentUser} />
+         <OrganizationsTable organizations={ucsbOrganizations} currentUser={currentUser} />
       </div>
     </BasicLayout>
   )

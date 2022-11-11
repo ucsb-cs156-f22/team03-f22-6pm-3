@@ -1,4 +1,4 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
@@ -23,8 +23,6 @@ jest.mock('react-toastify', () => {
 describe("HelpRequestsIndexPage tests", () => {
 
     const axiosMock =new AxiosMockAdapter(axios);
-
-    const testId = "HelpRequestsTable";
 
     const setupUserOnly = () => {
         axiosMock.reset();

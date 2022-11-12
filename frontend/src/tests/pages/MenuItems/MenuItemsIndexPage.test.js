@@ -139,7 +139,7 @@ describe("MenuItemsIndexPage tests", () => {
 
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/ucsbdinningcommonsmenu/all").reply(200, menuItemsFixtures.threeMenuItem);
-        axiosMock.onDelete("/api/ucsbdinningcommonsmenu").reply(200, "MenuItem with id 1 was deleted");
+        axiosMock.onDelete("/api/ucsbdinningcommonsmenu",{params: {id: 1}}).reply(200, "MenuItem with id 1 was deleted");
 
 
         const { getByTestId } = render(

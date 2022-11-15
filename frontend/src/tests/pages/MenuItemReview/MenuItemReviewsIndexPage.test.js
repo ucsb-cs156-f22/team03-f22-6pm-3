@@ -6,7 +6,7 @@ import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviews
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { menuItemReviewsFixtures } from "fixtures/MenuItemReviewsFixtures";
+import { menuItemReviewsFixtures } from "fixtures/menuItemReviewsFixtures2";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import _mockConsole from "jest-mock-console";

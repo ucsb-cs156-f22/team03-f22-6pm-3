@@ -42,7 +42,7 @@ describe("HelpRequestsTable tests", () => {
     );
   });
 
-  /*test("renders without crashing for empty table for admin", () => {
+  test("renders without crashing for empty table for admin", () => {
     const currentUser = currentUserFixtures.adminUser;
 
     render(
@@ -54,8 +54,6 @@ describe("HelpRequestsTable tests", () => {
 
     );
   });
-  */
-
   
   test("Has the expected colum headers and content for adminUser", () => {
 
@@ -72,7 +70,7 @@ describe("HelpRequestsTable tests", () => {
 
     const expectedHeaders = ["id", "RequesterEmail", "TeamId", "TableOrRoom", "RequestTime", "Explanation", "Solved"];
     const expectedFields = ["id", "requesterEmail", "teamId", "tableOrBreakoutRoom", "requestTime", "explanation", "solved"];
-    const testId = "HelpRequestsTable";
+    const testId = "HelpRequestTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = getByText(headerText);
@@ -91,9 +89,9 @@ describe("HelpRequestsTable tests", () => {
     //expect(editButton).toBeInTheDocument();
     //expect(editButton).toHaveClass("btn-primary");
 
-    //const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    //expect(deleteButton).toBeInTheDocument();
-    //expect(deleteButton).toHaveClass("btn-danger");
+    const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    expect(deleteButton).toBeInTheDocument();
+    expect(deleteButton).toHaveClass("btn-danger");
 
   });
   /*

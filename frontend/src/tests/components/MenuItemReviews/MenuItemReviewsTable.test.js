@@ -86,40 +86,40 @@ describe("MenuItemReviewsTable tests", () => {
     expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
     expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
 
-    // const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
-    // expect(editButton).toBeInTheDocument();
-    // expect(editButton).toHaveClass("btn-primary");
+    const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    expect(editButton).toBeInTheDocument();
+    expect(editButton).toHaveClass("btn-primary");
 
-    // const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    // expect(deleteButton).toBeInTheDocument();
-    // expect(deleteButton).toHaveClass("btn-danger");
+    const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+    expect(deleteButton).toBeInTheDocument();
+    expect(deleteButton).toHaveClass("btn-danger");
 
   });
 
 
-//   test("Edit button navigates to the edit page for admin user", async () => {
+  test("Edit button navigates to the edit page for admin user", async () => {
 
-//     const currentUser = currentUserFixtures.adminUser;
+    const currentUser = currentUserFixtures.adminUser;
 
-//     const { getByTestId } = render(
-//       <QueryClientProvider client={queryClient}>
-//         <MemoryRouter>
-//           <MenuItemReviewsTable dates={ucsbDatesFixtures.threeDates} currentUser={currentUser} />
-//         </MemoryRouter>
-//       </QueryClientProvider>
+    const { getByTestId } = render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <MenuItemReviewsTable menuItemReviews={menuItemReviewsFixtures.threeReviews} currentUser={currentUser} />
+        </MemoryRouter>
+      </QueryClientProvider>
 
-//     );
+    );
 
-//     await waitFor(() => { expect(getByTestId(`MenuItemReviewsTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
+    await waitFor(() => { expect(getByTestId(`MenuItemReviewsTable-cell-row-0-col-id`)).toHaveTextContent("1"); });
 
-//     const editButton = getByTestId(`MenuItemReviewsTable-cell-row-0-col-Edit-button`);
-//     expect(editButton).toBeInTheDocument();
+    const editButton = getByTestId(`MenuItemReviewsTable-cell-row-0-col-Edit-button`);
+    expect(editButton).toBeInTheDocument();
     
-//     fireEvent.click(editButton);
+    fireEvent.click(editButton);
 
-//     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/ucsbdates/edit/1'));
+    await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/menuItemReviews/edit/1'));
 
-//   });
+  });
 
 });
 

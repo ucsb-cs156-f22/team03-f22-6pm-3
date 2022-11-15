@@ -21,7 +21,9 @@ import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
+import MenuItemReviewsPage from "main/pages/MenuItemReviews/MenuItemReviewsIndexPage";
 import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
+
 
 
 function App() {
@@ -68,6 +70,13 @@ function App() {
           )
         }
         {
+          hasRole(currentUser, "ROLE_USER") && (
+            <>
+              <Route exact path="/menuItemReviews/list" element={<MenuItemReviewsPage />} />
+            </>
+          )
+        }
+        {
           hasRole(currentUser, "ROLE_ADMIN") && (
             <>
               <Route exact path="/ucsbdates/create" element={<UCSBDatesCreatePage />} />
@@ -82,9 +91,6 @@ function App() {
             </>
           )
         }
-
-
-
         {
           hasRole(currentUser, "ROLE_USER") && (
             <>
@@ -92,7 +98,6 @@ function App() {
             </>
           )
         }
-
       </Routes>
     </BrowserRouter>
   );

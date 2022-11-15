@@ -1,5 +1,5 @@
-import { fireEvent, render, waitFor } from "@testing-library/react";
-import { menuItemReviewsFixtures, MenuItemReviewsFixtures } from "fixtures/menuItemReviewsFixtures";
+import { _fireEvent, render, _waitFor } from "@testing-library/react";
+import { menuItemReviewsFixtures } from "fixtures/menuItemReviewsFixtures";
 import MenuItemReviewsTable from "main/components/MenuItemReviews/MenuItemReviewsTable"
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";

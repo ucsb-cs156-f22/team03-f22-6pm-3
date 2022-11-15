@@ -9,10 +9,11 @@ export function cellToAxiosParamsDelete(cell) {
         url: "/api/helprequests",
         method: "DELETE",
         params: {
-            code: cell.row.values.code
+            id: cell.row.values.id
         }
     }
 }
+
 
 export default function HelpRequestsTable({ requests, currentUser }) {
 
@@ -65,10 +66,12 @@ export default function HelpRequestsTable({ requests, currentUser }) {
         }
     ];
 
+    const testid = "HelpRequestTable";
+
     const columnsIfAdmin = [
         ...columns,
-        //ButtonColumn("Edit", "primary", editCallback, "HelpRequestsTable"),
-        ButtonColumn("Delete", "danger", deleteCallback, "HelpRequestsTable")
+        //ButtonColumn("Edit", "primary", editCallback, testid),
+        ButtonColumn("Delete", "danger", deleteCallback, testid)
     ];
 
     const columnsToDisplay = hasRole(currentUser, "ROLE_ADMIN") ? columnsIfAdmin : columns;
@@ -77,6 +80,6 @@ export default function HelpRequestsTable({ requests, currentUser }) {
     return <OurTable
         data={requests}
         columns={columnsToDisplay}
-        testid={"HelpRequestsTable"}
+        testid={testid}
     />;
 };

@@ -1,7 +1,7 @@
 import OurTable, { ButtonColumn} from "main/components/OurTable";
 import { useBackendMutation } from "main/utils/useBackend";
 import {  onDeleteSuccess } from "main/utils/UCSBDateUtils"
-import { useNavigate } from "react-router-dom";
+import { _useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
 export function cellToAxiosParamsDelete(cell) {
@@ -69,7 +69,7 @@ export default function RecommendationRequestsTable({ recrequests, currentUser }
 
     const columnsIfAdmin = [
         ...columns,
-        ButtonColumn("Edit", "primary", editCallback, testid),
+        //ButtonColumn("Edit", "primary", editCallback, testid),
         ButtonColumn("Delete", "danger", deleteCallback, testid)
     ];
 

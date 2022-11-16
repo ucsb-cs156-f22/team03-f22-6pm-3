@@ -133,12 +133,12 @@ describe("RecommendationRequestsIndexPage tests", () => {
 
         await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(3); });
 
-        const expectedHeaders = ['iD', 'RequesterEmail', 'ProfessorEmail', 'DateRequested', 'DateNeeded', 'Done'];
+        const expectedHeaders = ['id', 'RequesterEmail', 'ProfessorEmail', 'Explanation' ,'DateRequested', 'DateNeeded', 'Done'];
 
-        // expectedHeaders.forEach((headerText) => {
-        //   const header = getByText(headerText);
-        //   expect(header).toBeInTheDocument();
-        // });
+        expectedHeaders.forEach((headerText) => {
+          const header = getByText(headerText);
+          expect(header).toBeInTheDocument();
+        });
 
         expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
     });
@@ -163,12 +163,12 @@ describe("RecommendationRequestsIndexPage tests", () => {
         expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); 
 
 
-        // const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-        // expect(deleteButton).toBeInTheDocument();
+        const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+        expect(deleteButton).toBeInTheDocument();
 
-        // fireEvent.click(deleteButton);
+        fireEvent.click(deleteButton);
 
-        // await waitFor(() => { expect(mockToast).toBeCalledWith("RecommendationRequest with id 1 was deleted") });
+        await waitFor(() => { expect(mockToast).toBeCalledWith("RecommendationRequest with id 1 was deleted") });
 
     });
 

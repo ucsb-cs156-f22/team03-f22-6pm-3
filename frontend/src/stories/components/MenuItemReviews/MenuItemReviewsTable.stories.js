@@ -1,7 +1,7 @@
 import React from 'react';
 
 import MenuItemReviewsTable from "main/components/MenuItemReviews/MenuItemReviewsTable";
-import { menuItemReviewsFixtures } from 'fixtures/menuItemReviewsFixtures2';
+import { menuItemReviewsFixtures } from 'fixtures/menuItemReviewsFixtures';
 
 export default {
     title: 'components/MenuItemReviews/MenuItemsReviewTable',

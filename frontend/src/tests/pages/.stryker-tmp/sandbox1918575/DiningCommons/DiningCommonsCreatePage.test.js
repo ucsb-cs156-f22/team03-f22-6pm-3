@@ -1,12 +1,13 @@
 import { render, waitFor, fireEvent } from "@testing-library/react";
-import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
+import DiningCommonsCreatePage from "main/pages/DiningCommons/DiningCommonsCreatePage";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 
-import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
+import { apiCurrentUserFixtures }  from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
+
 
 const mockToast = jest.fn();
 jest.mock('react-toastify', () => {
@@ -28,7 +29,8 @@ jest.mock('react-router-dom', () => {
     };
 });
 
-describe("MenuItemReviewsCreatePage tests", () => {
+
+describe("DiningCommonsCreatePage tests", () => {
 
     const axiosMock =new AxiosMockAdapter(axios);
 
@@ -44,7 +46,7 @@ describe("MenuItemReviewsCreatePage tests", () => {
         render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <MenuItemReviewsCreatePage />
+                    <DiningCommonsCreatePage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
@@ -53,41 +55,43 @@ describe("MenuItemReviewsCreatePage tests", () => {
     test("when you fill in the form and hit submit, it makes a request to the backend", async () => {
 
         const queryClient = new QueryClient();
-        const menuItemReview = {
-            id: 17,
-            itemId: 3,
-            reviewerEmail: "cgaucho@ucsb.edu",
-            stars: 1,
-            comments: "bad :(",
-            dateReviewed: "2022-02-02T00:00",
-        };
 
-        axiosMock.onPost("/api/menuitemreview/post").reply( 202, menuItemReview );
+        const commons = {
+            "code": "ortega",
+            "name": "Ortega",
+            "hasSackMeal": true,
+            "hasTakeOutMeal": true,
+            "hasDiningCam": true,
+            "latitude": 30.0,
+            "longitude": -119.0
+          };
+        
+    
+        axiosMock.onPost("/api/ucsbdiningcommons/post").reply( 202, commons );
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
-                    <MenuItemReviewsCreatePage />
+                    <DiningCommonsCreatePage />
                 </MemoryRouter>
             </QueryClientProvider>
         );
 
         await waitFor(() => {
-            expect(getByTestId("MenuItemReviewsForm-itemId")).toBeInTheDocument();
+            expect(getByTestId("DiningCommonsForm-code")).toBeInTheDocument();
         });
 
-        const itemIdField = getByTestId("MenuItemReviewsForm-itemId");
-        const reviewerEmailField = getByTestId("MenuItemReviewsForm-reviewerEmail");
-        const dateReviewedField = getByTestId("MenuItemReviewsForm-dateReviewed");
-        const starsField = getByTestId("MenuItemReviewsForm-stars");
-        const commentsField = getByTestId("MenuItemReviewsForm-comments");
-        const submitButton = getByTestId("MenuItemReviewsForm-submit");
+        const codeField = getByTestId("DiningCommonsForm-code");
+        const nameField = getByTestId("DiningCommonsForm-name");
+        const latitudeField = getByTestId("DiningCommonsForm-latitude");
+        const longitudeField = getByTestId("DiningCommonsForm-longitude");
 
-        fireEvent.change(itemIdField, { target: { value: '3' } });
-        fireEvent.change(reviewerEmailField, { target: { value: 'cgaucho@ucsb.edu' } });
-        fireEvent.change(dateReviewedField, { target: { value: '2022-02-02T00:00' } });
-        fireEvent.change(starsField, { target: { value: '1' } });
-        fireEvent.change(commentsField, { target: { value: 'bad :(' } });
+        const submitButton = getByTestId("DiningCommonsForm-submit");
+
+        fireEvent.change(codeField, { target: { value: 'ortega' } });
+        fireEvent.change(nameField, { target: { value: 'Ortega' } });
+        fireEvent.change(latitudeField, { target: { value: '30.0' } });
+        fireEvent.change(longitudeField, { target: { value: '-119.0' } });
 
         expect(submitButton).toBeInTheDocument();
 
@@ -95,17 +99,18 @@ describe("MenuItemReviewsCreatePage tests", () => {
 
         await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
-        expect(axiosMock.history.post[0].params).toEqual(
-            {
-                'itemId': '3',
-                'reviewerEmail': 'cgaucho@ucsb.edu',
-                'stars': '1',
-                'comments': 'bad :(',
-                'dateReviewed': '2022-02-02T00:00',
+        expect(axiosMock.history.post[0].params).toEqual({
+            "code": "ortega",
+            "name": "Ortega",
+            "hasSackMeal": false,
+            "hasTakeOutMeal": false,
+            "hasDiningCam": false,
+            "latitude": '30.0',
+            "longitude": '-119.0'
         });
 
-        expect(mockToast).toBeCalledWith("New menuItemReview Created - id: 17 reviewerEmail: cgaucho@ucsb.edu");
-        expect(mockNavigate).toBeCalledWith({ "to": "/menuItemReviews/list" });
+        expect(mockToast).toBeCalledWith("New Dining Commons Created - code: ortega name: Ortega");
+        expect(mockNavigate).toBeCalledWith({ "to": "/diningCommons/list" });
     });
 
 

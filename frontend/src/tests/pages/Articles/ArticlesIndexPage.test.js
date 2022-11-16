@@ -129,7 +129,7 @@ describe("ArticlesPage tests", () => {
 
         const restoreConsole = mockConsole();
 
-        const { queryByTestId, getByText} = render(
+        const { queryByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <ArticlesIndexPage />

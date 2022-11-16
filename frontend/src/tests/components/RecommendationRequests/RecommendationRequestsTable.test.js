@@ -62,15 +62,15 @@ describe("RecommendationRequestsTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <RecommendationRequestsTable recrequests={RecommendationRequestsFixtures.threeRequests} currentUser={currentUser} />
+          <RecommendationRequestsTable dates={RecommendationRequestsFixtures.threeRequests} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
     );
 
-    const expectedHeaders = ['id',  'DateNeeded', 'DateRequested','Done','Explanation','ProfessorEmail','RequesterEmail'];
-    const expectedFields = ['id', 'dateNeeded','dateRequested', 'done','explanation','professorEmail','requesterEmail'];
-    const testId = "RecommendationRequestsTable";
+    const expectedHeaders = ["id", "RequesterEmail", "ProfessorEmail", "DateRequested", 'Explanation', 'DateNeeded', 'Done?'];
+    const expectedFields = ["id", "requesterEmail", "professorEmail", "dateRequested", 'explanation', 'dateNeeded', 'done'];
+    const testId = "UCSBRecommendationRequestsTable";
 
     expectedHeaders.forEach((headerText) => {
       const header = getByText(headerText);
@@ -82,11 +82,12 @@ describe("RecommendationRequestsTable tests", () => {
       expect(header).toBeInTheDocument();
     });
 
-    expect(getByTestId(`${testId}-cell-row-0-col-dateNeeded`)).toHaveTextContent("2022-01-02T12:00:00");
-    expect(getByTestId(`${testId}-cell-row-1-col-dateNeeded`)).toHaveTextContent("2022-07-04T12:00:00");
     expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
-    expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("1");
+    expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
+    const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    expect(editButton).toBeInTheDocument();
+    expect(editButton).toHaveClass("btn-primary");
 
     const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
     expect(deleteButton).toBeInTheDocument();

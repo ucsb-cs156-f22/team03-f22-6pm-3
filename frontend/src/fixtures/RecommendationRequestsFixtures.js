@@ -19,7 +19,7 @@ const RecommendationRequestsFixtures = {
             "done": true,
         },
         {
-            "id": 1,
+            "id": 2,
             "requesterEmail": "pconrad@ucsb.edu",
             "professorEmail": "josephcollins@ucsb.edu",
             "explanation": "We should go get some Canes",
@@ -28,7 +28,7 @@ const RecommendationRequestsFixtures = {
             "done": false,
         },
         {
-            "id": 1,
+            "id": 3,
             "requesterEmail": "josephcollins@ucsb.edu",
             "professorEmail": "pconrad@ucsb.edu",
             "explanation": "Your TAs are the best",

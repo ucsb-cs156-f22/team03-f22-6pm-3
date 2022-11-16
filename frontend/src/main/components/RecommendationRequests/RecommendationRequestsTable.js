@@ -1,7 +1,7 @@
 import OurTable, { ButtonColumn} from "main/components/OurTable";
 import { useBackendMutation } from "main/utils/useBackend";
 import {  onDeleteSuccess } from "main/utils/UCSBDateUtils"
-import { _useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
 export function cellToAxiosParamsDelete(cell) {
@@ -16,11 +16,11 @@ export function cellToAxiosParamsDelete(cell) {
 
 export default function RecommendationRequestsTable({ recrequests, currentUser }) {
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    // const editCallback = (cell) => {
-    //     navigate(`/recrequests/edit/${cell.row.values.code}`)
-    // }
+    const editCallback = (cell) => {
+        navigate(`/recrequests/edit/${cell.row.values.code}`)
+    }
 
     // Stryker disable all : hard to test for query caching
     const deleteMutation = useBackendMutation(
@@ -69,7 +69,7 @@ export default function RecommendationRequestsTable({ recrequests, currentUser }
 
     const columnsIfAdmin = [
         ...columns,
-        //ButtonColumn("Edit", "primary", editCallback, testid),
+        ButtonColumn("Edit", "primary", editCallback, testid),
         ButtonColumn("Delete", "danger", deleteCallback, testid)
     ];
 

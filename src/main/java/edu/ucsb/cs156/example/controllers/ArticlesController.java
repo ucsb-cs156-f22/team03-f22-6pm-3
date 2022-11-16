@@ -86,7 +86,7 @@ public class ArticlesController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
     public Object deleteCommons(
-            @ApiParam("code") @RequestParam Long id) {
+            @ApiParam("id") @RequestParam Long id) {
         Articles articles = articlesRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
 

@@ -24,7 +24,7 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticleTable article={[]} currentUser={currentUser} />
+          <ArticlesTable articles={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -36,7 +36,7 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticleTable article={[]} currentUser={currentUser} />
+          <ArticlesTable articles={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -49,7 +49,7 @@ describe("ArticlesTable tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable article={[]} currentUser={currentUser} />
+          <ArticlesTable articles={[]} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -63,14 +63,14 @@ describe("ArticlesTable tests", () => {
     const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable article={articlesFixtures.threeArticles} currentUser={currentUser} />
+          <ArticlesTable articles={articlesFixtures.threeArticles} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
     );
 
-    const expectedHeaders = ["Date Added", "Email", "Explanation", "Title", "Date Added"];
-    const expectedFields = ["Date Added", "Email", "Explanation", "Title", "Date Added"];
+    const expectedHeaders = ["Date Added", "Email", "Explanation", "Title", "URL"];
+    const expectedFields = ["Date Added", "Email", "Explanation", "Title", "URL"];
     const testId = "ArticlesTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -103,7 +103,7 @@ describe("ArticlesTable tests", () => {
     const { getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesTable article={articlesFixtures.threeArticles} currentUser={currentUser} />
+          <ArticlesTable articles={articlesFixtures.threeArticles} currentUser={currentUser} />
         </MemoryRouter>
       </QueryClientProvider>
 
@@ -133,7 +133,7 @@ describe("cellToAxiosParamsDelete", () => {
 
       // assert
       expect(result).toEqual({
-          url: "/api/article",
+          url: "/api/articles",
           method: "DELETE",
           params: { id: "1" }
       });

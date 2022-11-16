@@ -1,6 +1,6 @@
 import { render, waitFor, fireEvent } from "@testing-library/react";
 import MenuItemReviewsForm from "main/components/MenuItemReviews/MenuItemReviewsForm";
-import { menuItemReviewsFixtures } from "fixtures/menuItemReviewsFixtures";
+import { menuItemReviewsFixtures } from "fixtures/menuItemReviewsFixtures2";
 import { BrowserRouter as Router } from "react-router-dom";
 
 const mockedNavigate = jest.fn();

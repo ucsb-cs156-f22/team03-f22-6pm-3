@@ -18,14 +18,15 @@ import UCSBDatesIndexPage from "main/pages/UCSBDates/UCSBDatesIndexPage";
 import UCSBDatesCreatePage from "main/pages/UCSBDates/UCSBDatesCreatePage";
 import UCSBDatesEditPage from "main/pages/UCSBDates/UCSBDatesEditPage";
 
+import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviewsIndexPage";
+import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
+import MenuItemReviewsEditPage from "main/pages/MenuItemReviews/MenuItemReviewsEditPage";
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
 import MenuItemReviewsPage from "main/pages/MenuItemReviews/MenuItemReviewsIndexPage";
 import HelpRequestsIndexPage from "main/pages/HelpRequests/HelpRequestsIndexPage";
-
-
 
 function App() {
 
@@ -80,7 +81,15 @@ function App() {
         {
           hasRole(currentUser, "ROLE_USER") && (
             <>
-              <Route exact path="/menuItemReviews/list" element={<MenuItemReviewsPage />} />
+              <Route exact path="/menuItemReviews/list" element={<MenuItemReviewsIndexPage />} />
+            </>
+          )
+        }
+        {
+          hasRole(currentUser, "ROLE_ADMIN") && (
+            <>
+              <Route exact path="/menuItemReviews/create" element={<MenuItemReviewsCreatePage />} />
+              <Route exact path="/menuItemReviews/edit/:id" element={<MenuItemReviewsEditPage />} />
             </>
           )
         }

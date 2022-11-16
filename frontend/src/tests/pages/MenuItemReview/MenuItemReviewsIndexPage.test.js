@@ -6,7 +6,7 @@ import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviews
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-//import { MenuItemReviewFixtures } from "fixtures/MenuItemReviewFixtures";
+import { menuItemReviewsFixtures } from "fixtures/menuItemReviewsFixtures2";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import _mockConsole from "jest-mock-console";
@@ -82,127 +82,127 @@ describe("MenuItemReviewsIndexPage tests", () => {
     });
 
 
-    // test("renders three menuItemReviews without crashing for regular user", async () => {
-    //     setupUserOnly();
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/menuitemreview/all").reply(200, menuItemReviewsFixtures.threeCommons);
+    test("renders three menuItemReviews without crashing for regular user", async () => {
+        setupUserOnly();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/menuitemreview/all").reply(200, menuItemReviewsFixtures.threeReviews);
 
-    //     const { getByTestId } = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <MenuItemReviewsIndexPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <MenuItemReviewsIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    //     await waitFor(  () => { expect(getByTestId(`${testId}-cell-row-0-col-code`)).toHaveTextContent("de-la-guerra"); } );
-    //     expect(getByTestId(`${testId}-cell-row-1-col-code`)).toHaveTextContent("ortega");
-    //     expect(getByTestId(`${testId}-cell-row-2-col-code`)).toHaveTextContent("portola");
+        await waitFor(  () => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); } );
+        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
 
-    // });
+    });
 
-    // test("renders three menuItemReviews without crashing for admin user", async () => {
-    //     setupAdminUser();
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/menuitemreview/all").reply(200, menuItemReviewsFixtures.threeCommons);
+    test("renders three menuItemReviews without crashing for admin user", async () => {
+        setupAdminUser();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/menuitemreview/all").reply(200, menuItemReviewsFixtures.threeReviews);
 
-    //     const { getByTestId } = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <MenuItemReviewsIndexPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <MenuItemReviewsIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    //     await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-code`)).toHaveTextContent("de-la-guerra"); });
-    //     expect(getByTestId(`${testId}-cell-row-1-col-code`)).toHaveTextContent("ortega");
-    //     expect(getByTestId(`${testId}-cell-row-2-col-code`)).toHaveTextContent("portola");
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
+        expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
+        expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
 
-    // });
+    });
 
-    // test("renders empty table when backend unavailable, user only", async () => {
-    //     setupUserOnly();
+    test("renders empty table when backend unavailable, user only", async () => {
+        setupUserOnly();
 
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/menuitemreview/all").timeout();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/menuitemreview/all").timeout();
 
-    //     const { queryByTestId, getByText } = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <MenuItemReviewsIndexPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
+        const { queryByTestId, getByText } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <MenuItemReviewsIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    //     await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(3); });
+        await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(3); });
 
-    //     const expectedHeaders = ['Code',  'Name', 'Sack Meal?','Takeout Meal?','Dining Cam?','Latitude','Longitude'];
+        const expectedHeaders = ['id', 'Item ID', 'Reviewer Email', 'Stars', 'Date Reviewed', 'Comments'];
     
-    //     expectedHeaders.forEach((headerText) => {
-    //       const header = getByText(headerText);
-    //       expect(header).toBeInTheDocument();
-    //     });
+        expectedHeaders.forEach((headerText) => {
+          const header = getByText(headerText);
+          expect(header).toBeInTheDocument();
+        });
 
-    //     expect(queryByTestId(`${testId}-cell-row-0-col-code`)).not.toBeInTheDocument();
-    // });
+        expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
+    });
 
-    // test("test what happens when you click delete, admin", async () => {
-    //     setupAdminUser();
+    test("test what happens when you click delete, admin", async () => {
+        setupAdminUser();
 
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/menuitemreview/all").reply(200, menuItemReviewsFixtures.threeCommons);
-    //     axiosMock.onDelete("/api/menuitemreview", {params: {code: "de-la-guerra"}}).reply(200, "menuItemReviews with id de-la-guerra was deleted");
-
-
-    //     const { getByTestId } = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <MenuItemReviewsIndexPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
-
-    //     await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-code`)).toBeInTheDocument(); });
-
-    //    expect(getByTestId(`${testId}-cell-row-0-col-code`)).toHaveTextContent("de-la-guerra"); 
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/menuitemreview/all").reply(200, menuItemReviewsFixtures.threeReviews);
+        axiosMock.onDelete("/api/menuitemreview", {params: {id: 1}}).reply(200, "menuItemReviews with id 1 was deleted");
 
 
-    //     const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-    //     expect(deleteButton).toBeInTheDocument();
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <MenuItemReviewsIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument(); });
+
+       expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); 
+
+
+        const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+        expect(deleteButton).toBeInTheDocument();
        
-    //     fireEvent.click(deleteButton);
+        fireEvent.click(deleteButton);
 
-    //     await waitFor(() => { expect(mockToast).toBeCalledWith("menuItemReviews with id de-la-guerra was deleted") });
+        await waitFor(() => { expect(mockToast).toBeCalledWith("menuItemReviews with id 1 was deleted") });
 
-    // });
+    });
 
-    // test("test what happens when you click edit as an admin", async () => {
-    //     setupAdminUser();
+    test("test what happens when you click edit as an admin", async () => {
+        setupAdminUser();
 
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/menuitemreview/all").reply(200, menuItemReviewsFixtures.threeCommons);
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/menuitemreview/all").reply(200, menuItemReviewsFixtures.threeReviews);
 
-    //     const { getByTestId } = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <MenuItemReviewsIndexPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <MenuItemReviewsIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    //     await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-code`)).toBeInTheDocument(); });
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument(); });
 
-    //     expect(getByTestId(`${testId}-cell-row-0-col-code`)).toHaveTextContent("de-la-guerra"); 
+        expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); 
 
 
-    //     const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
-    //     expect(editButton).toBeInTheDocument();
+        const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+        expect(editButton).toBeInTheDocument();
        
-    //     fireEvent.click(editButton);
+        fireEvent.click(editButton);
 
-    //     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/menuItemReviews/edit/de-la-guerra'));
+        await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/menuItemReviews/edit/1'));
 
-    // });
+    });
 
 
 });

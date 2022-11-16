@@ -1,4 +1,4 @@
-import { _fireEvent, render, _waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { articlesFixtures } from "fixtures/articlesFixtures";
 import ArticlesTable from "main/components/Articles/ArticlesTable";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -86,9 +86,9 @@ describe("ArticlesTable tests", () => {
     expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1");
     expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
 
-    /*const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
+    const editButton = getByTestId(`${testId}-cell-row-0-col-Edit-button`);
     expect(editButton).toBeInTheDocument();
-    expect(editButton).toHaveClass("btn-primary");*/
+    expect(editButton).toHaveClass("btn-primary");
 
     const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
     expect(deleteButton).toBeInTheDocument();
@@ -96,7 +96,7 @@ describe("ArticlesTable tests", () => {
 
   });
 
-  /*test("Edit button navigates to the edit page for admin user", async () => {
+  test("Edit button navigates to the edit page for admin user", async () => {
 
     const currentUser = currentUserFixtures.adminUser;
 
@@ -118,7 +118,7 @@ describe("ArticlesTable tests", () => {
 
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith('/articles/edit/1'));
 
-  });*/
+  });
 
 });
 

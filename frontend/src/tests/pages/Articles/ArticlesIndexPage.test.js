@@ -1,4 +1,4 @@
-import { _fireEvent, render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import ArticlesIndexPage from "main/pages/Articles/ArticlesIndexPage";
@@ -9,7 +9,7 @@ import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { articlesFixtures } from "fixtures/articlesFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-//import mockConsole from "jest-mock-console";
+import mockConsole from "jest-mock-console";
 
 
 const mockToast = jest.fn();
@@ -22,7 +22,7 @@ jest.mock('react-toastify', () => {
     };
 });
 
-describe("UCSBDatesIndexPage tests", () => {
+describe("ArticlesPage tests", () => {
 
     const axiosMock =new AxiosMockAdapter(axios);
 
@@ -119,56 +119,58 @@ describe("UCSBDatesIndexPage tests", () => {
 
         });
 
-    // test("renders empty table when backend unavailable, user only", async () => {
-    //     setupUserOnly();
 
-    //     const queryClient = new QueryClient();
-    //     axiosMock.onGet("/api/articles/all").timeout();
+        
+    test("renders empty table when backend unavailable, user only", async () => {
+        setupUserOnly();
 
-    //     const restoreConsole = mockConsole();
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/articles/all").timeout();
 
-    //     const { queryByTestId, getByText} = render(
-    //         <QueryClientProvider client={queryClient}>
-    //             <MemoryRouter>
-    //                 <ArticlesIndexPage />
-    //             </MemoryRouter>
-    //         </QueryClientProvider>
-    //     );
+        const restoreConsole = mockConsole();
 
-    //     await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
-    //     restoreConsole();
+        const { queryByTestId, getByText} = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ArticlesIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
 
-    //     expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
-    // });
+        await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
+        restoreConsole();
 
-//     test("test what happens when you click delete, admin", async () => {
-//         setupAdminUser();
+        expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
+    });
 
-//         const queryClient = new QueryClient();
-//         axiosMock.onGet("/api/ucsbdates/all").reply(200, ucsbDatesFixtures.threeDates);
-//         axiosMock.onDelete("/api/ucsbdates").reply(200, "UCSBDate with id 1 was deleted");
+    test("test what happens when you click delete, admin", async () => {
+        setupAdminUser();
 
-
-//         const { getByTestId } = render(
-//             <QueryClientProvider client={queryClient}>
-//                 <MemoryRouter>
-//                     <UCSBDatesIndexPage />
-//                 </MemoryRouter>
-//             </QueryClientProvider>
-//         );
-
-//         await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument(); });
-
-//        expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); 
+        const queryClient = new QueryClient();
+        axiosMock.onGet("/api/articles/all").reply(200, articlesFixtures.threeArticles);
+        axiosMock.onDelete("/api/articles").reply(200, "Articles with id 1 was deleted");
 
 
-//         const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
-//         expect(deleteButton).toBeInTheDocument();
+        const { getByTestId } = render(
+            <QueryClientProvider client={queryClient}>
+                <MemoryRouter>
+                    <ArticlesIndexPage />
+                </MemoryRouter>
+            </QueryClientProvider>
+        );
+
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toBeInTheDocument(); });
+
+       expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); 
+
+
+        const deleteButton = getByTestId(`${testId}-cell-row-0-col-Delete-button`);
+        expect(deleteButton).toBeInTheDocument();
        
-//         fireEvent.click(deleteButton);
+        fireEvent.click(deleteButton);
 
-//         await waitFor(() => { expect(mockToast).toBeCalledWith("UCSBDate with id 1 was deleted") });
+        await waitFor(() => { expect(mockToast).toBeCalledWith("Articles with id 1 was deleted") });
 
-//     });
+    });
 
  });

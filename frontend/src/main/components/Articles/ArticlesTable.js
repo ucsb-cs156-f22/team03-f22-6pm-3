@@ -1,6 +1,6 @@
-import OurTable, { _ButtonColumn } from "main/components/OurTable";
+import OurTable, { ButtonColumn } from "main/components/OurTable";
 import { useBackendMutation } from "main/utils/useBackend";
-import { cellToAxiosParamsDelete, onDeleteSuccess } from "main/utils/UCSBDateUtils"
+import {  onDeleteSuccess, cellToAxiosParamsDelete } from "main/utils/UCSBDateUtils"
 //import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
@@ -16,7 +16,7 @@ export default function ArticlesTable({ articles, currentUser }) {
     const deleteMutation = useBackendMutation(
         cellToAxiosParamsDelete,
         { onSuccess: onDeleteSuccess },
-        ["/api/ucsbdates/all"]
+        ["/api/articles/all"]
     );
     //Stryker enable all 
 
@@ -52,8 +52,8 @@ export default function ArticlesTable({ articles, currentUser }) {
 
      const columnsIfAdmin = [
          ...columns,
-    //     ButtonColumn("Edit", "primary", editCallback, "UCSBDatesTable"),
-         ButtonColumn("Delete", "danger", deleteCallback, "UCSBDatesTable")
+         ButtonColumn("Edit", "primary", "ArticlesTable", "id"),
+         ButtonColumn("Delete", "danger", deleteCallback, "ArticlesTable", "id")
      ];
 
     const columnsToDisplay = hasRole(currentUser, "ROLE_ADMIN") ? columnsIfAdmin : columns;

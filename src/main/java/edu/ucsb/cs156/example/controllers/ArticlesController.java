@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.persistence.Id;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 
@@ -87,7 +86,7 @@ public class ArticlesController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
     public Object deleteCommons(
-            @ApiParam("code") @RequestParam Long id) {
+            @ApiParam("id") @RequestParam Long id) {
         Articles articles = articlesRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Articles.class, id));
 

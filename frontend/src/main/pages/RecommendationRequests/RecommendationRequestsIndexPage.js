@@ -6,10 +6,12 @@ import RecommendationRequestsTable from 'main/components/RecommendationRequests/
 import { useCurrentUser } from 'main/utils/currentUser'
 
 export default function RecommendationRequestsIndexPage() {
+  
   const currentUser = useCurrentUser();
 
-  const { data: recrequests, error: _error, status: _status } =
+  const { data: recommendations, error: _error, status: _status } =
     useBackend(
+
       ["/api/recommendationrequests/all"],
 
             { method: "GET", url: "/api/recommendationrequests/all" },
@@ -20,7 +22,7 @@ export default function RecommendationRequestsIndexPage() {
     <BasicLayout>
       <div className="pt-2">
         <h1>RecommendationRequests</h1>
-        <RecommendationRequestsTable recrequests={recrequests} currentUser={currentUser} />
+        <RecommendationRequestsTable recommendations={recommendations} currentUser={currentUser} />
       </div>
     </BasicLayout>
   )

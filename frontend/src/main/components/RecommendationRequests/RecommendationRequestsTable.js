@@ -1,7 +1,7 @@
 import OurTable, { ButtonColumn} from "main/components/OurTable";
 import { useBackendMutation } from "main/utils/useBackend";
 import {  onDeleteSuccess } from "main/utils/UCSBDateUtils"
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
 
 export function cellToAxiosParamsDelete(cell) {
@@ -9,18 +9,18 @@ export function cellToAxiosParamsDelete(cell) {
         url: "/api/recommendationrequests",
         method: "DELETE",
         params: {
-            code: cell.row.values.code
+            id: cell.row.values.id
         }
     }
 }
 
-export default function RecommendationRequestsTable({ recrequests, currentUser }) {
+export default function RecommendationRequestsTable({ recommendations, currentUser }) {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const editCallback = (cell) => {
-        navigate(`/recrequests/edit/${cell.row.values.code}`)
-    }
+    // const editCallback = (cell) => {
+    //     navigate(`/recrequests/edit/${cell.row.values.code}`)
+    // }
 
     // Stryker disable all : hard to test for query caching
     const deleteMutation = useBackendMutation(
@@ -35,7 +35,7 @@ export default function RecommendationRequestsTable({ recrequests, currentUser }
 
     const columns = [
         {
-            Header: 'id',
+            Header: 'Id',
             accessor: 'id', 
         },
         {
@@ -65,19 +65,20 @@ export default function RecommendationRequestsTable({ recrequests, currentUser }
         },
     ];
 
-    const testid = "DiningCommonsTable";
+    const testId = "RecommendationRequestsTable";
 
     const columnsIfAdmin = [
         ...columns,
-        ButtonColumn("Edit", "primary", editCallback, testid),
-        ButtonColumn("Delete", "danger", deleteCallback, testid)
+        ButtonColumn("Delete", "danger", deleteCallback, testId)
     ];
+
+    //ButtonColumn("Edit", "primary", editCallback, testid),
 
     const columnsToDisplay = hasRole(currentUser, "ROLE_ADMIN") ? columnsIfAdmin : columns;
 
     return <OurTable
-        data={recrequests}
+        data={recommendations}
         columns={columnsToDisplay}
-        testid={"RecommendationRequestsTable"}
+        testid={testId}
     />;
 };

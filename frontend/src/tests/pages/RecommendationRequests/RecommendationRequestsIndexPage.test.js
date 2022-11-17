@@ -73,10 +73,10 @@ describe("RecommendationRequestsIndexPage tests", () => {
 
     });
 
-    test("Three Recommendations without crashing for user", async () => {
+    test("renders three recommendations without crashing for regular user", async () => {
         setupUserOnly();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/recommendationrequests/all").reply(200, RecommendationRequestsFixtures.threeRequests);
+        axiosMock.onGet("/api/recommendationrequests/all").reply(200, RecommendationRequestsFixtures.threeRecommendations);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -86,16 +86,16 @@ describe("RecommendationRequestsIndexPage tests", () => {
             </QueryClientProvider>
         );
 
-        await waitFor(  () => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); } );
+        await waitFor(() => { expect(getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent("1"); });
         expect(getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent("2");
         expect(getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent("3");
 
     });
 
-    test("Three Recommendations without crashing for admin", async () => {
+    test("renders three recommendations without crashing for admin user", async () => {
         setupAdminUser();
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/recommendationrequests/all").reply(200, RecommendationRequestsFixtures.threeRequests);
+        axiosMock.onGet("/api/recommendationrequests/all").reply(200, RecommendationRequestsFixtures.threeRecommendations);
 
         const { getByTestId } = render(
             <QueryClientProvider client={queryClient}>
@@ -116,8 +116,9 @@ describe("RecommendationRequestsIndexPage tests", () => {
 
         const queryClient = new QueryClient();
         axiosMock.onGet("/api/recommendationrequests/all").timeout();
+        // const restoreConsole = mockConsole();
 
-        const { queryByTestId, getByText } = render(
+        const { queryByTestId } = render(
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter>
                     <RecommendationRequestsIndexPage />
@@ -126,16 +127,16 @@ describe("RecommendationRequestsIndexPage tests", () => {
         );
 
         await waitFor(() => { expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1); });
-        restoreConsole();
+        // restoreConsole();
 
         expect(queryByTestId(`${testId}-cell-row-0-col-id`)).not.toBeInTheDocument();
     });
 
-    test("click delete, admin", async () => {
+    test("test what happens when you click delete, admin", async () => {
         setupAdminUser();
 
         const queryClient = new QueryClient();
-        axiosMock.onGet("/api/recommendationrequests/all").reply(200, RecommendationRequestsFixtures.threeRequests);
+        axiosMock.onGet("/api/recommendationrequests/all").reply(200, RecommendationRequestsFixtures.threeRecommendations);
         axiosMock.onDelete("/api/recommendationrequests").reply(200, "RecommendationRequest with id 1 was deleted");
 
         const { getByTestId } = render(
@@ -156,7 +157,7 @@ describe("RecommendationRequestsIndexPage tests", () => {
        
         fireEvent.click(deleteButton);
 
-        await waitFor(() => { expect(mockToast).toBeCalledWith("RecommendationRequests with id 1 was deleted") });
+        await waitFor(() => { expect(mockToast).toBeCalledWith("RecommendationRequest with id 1 was deleted") });
 
     });
 
